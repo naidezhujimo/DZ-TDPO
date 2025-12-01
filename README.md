@@ -10,7 +10,7 @@
 **Yijun Liao**  
 *Independent Researcher*
 
-[**Read the Paper (PDF)**](TAB_TDPO_Paper.pdf) | [**Twitter Thread**](https://twitter.com/YourTwitterHandle)
+[**Read the Paper (PDF)**](TAB_TDPO_Paper.pdf) | [**Twitter Thread**]([https://twitter.com/](https://x.com/KitaLiao))
 
 </div>
 

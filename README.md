@@ -17,7 +17,7 @@
 ---
 
 ## 📢 News
-- **[2025/XX/XX]** 🚀 **Paper Released!** We have uploaded the paper PDF directly to this repo while waiting for ArXiv endorsement.
+- **[2025/12/12]** 🚀 **Paper Released!** We have uploaded the paper PDF directly to this repo while waiting for ArXiv endorsement.
 - **[Coming Soon]** 💻 **Code Release:** The full training and evaluation scripts (including the MSC dataset processing pipeline) are being cleaned up and will be released **within this week**.
 
 ---
@@ -40,7 +40,6 @@ We propose **TAB-TDPO**, a non-destructive alignment framework that synergizes:
 TAB-TDPO significantly outperforms Standard DPO and SimPO on the MSC dataset, solving the "State Inertia" problem without destroying the model's general capabilities.
 
 <div align="center">
-  <!-- 请把论文里的 Table 1 截图，保存为 assets/results.png -->
   <img src="assets/results.png" width="80%">
 </div>
 
@@ -62,7 +61,6 @@ Our "Non-Conflicting Needle-in-a-Haystack" test confirms that TAB-TDPO retains 1
 ## 🛠️ Methodology
 
 <div align="center">
-  <!-- 请把论文里的 Figure 1 截图，保存为 assets/framework.png -->
   <img src="assets/framework.png" width="90%">
 </div>
 

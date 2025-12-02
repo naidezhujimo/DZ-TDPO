@@ -3,14 +3,14 @@
 
 # DZ-TDPO: Non-Destructive Temporal Alignment for Mutable State Tracking in Long-Context Dialogue
 
-<a href="DZ-TDPO_Paper.pdf"><img src="https://img.shields.io/badge/Paper-PDF_Available-b31b1b?style=for-the-badge&logo=adobeacrobatreader" alt="Paper PDF"></a>
+<a href="DZ-TDPO.pdf"><img src="https://img.shields.io/badge/Paper-PDF_Available-b31b1b?style=for-the-badge&logo=adobeacrobatreader" alt="Paper PDF"></a>
 <a href="https://twitter.com/YourTwitterHandle"><img src="https://img.shields.io/badge/Twitter-Thread-1DA1F2?style=for-the-badge&logo=twitter" alt="Twitter"></a>
 <a href="#"><img src="https://img.shields.io/badge/License-Apache_2.0-green?style=for-the-badge" alt="License"></a>
 
 **Yijun Liao**  
 *Independent Researcher*
 
-[**Read the Paper (PDF)**](DZ-TDPO_Paper.pdf) | [**Twitter Thread**](https://x.com/KitaLiao)
+[**Read the Paper (PDF)**](DZ-TDPO.pdf) | [**Twitter Thread**](https://x.com/KitaLiao)
 
 </div>
 

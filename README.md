@@ -91,7 +91,8 @@ DZ-TDPO/
 │   ├── eval_safety.py     # Context Flooding & Jailbreak Defense Test
 │   ├── eval_pingpong.py   # Rapid Intent Switching Test (State Flip-Flop)
 │   ├── eval_RULER.py      # Long-context Retrieval Stress Test
-│   └── eval_gen.py        # General Generation Metrics (BLEU/ROUGE)
+│   ├── merge_adapter.py   # Utility: Merge Custom Weights into HF Base Model
+│   ├── eval_gen.py        # Quantitative: Generation Quality (BLEU, ROUGE, BERTScore)
 ├── train.py               # Main unified training entry point
 ├── test_cpu_dryrun.py     # Architecture integrity verification script
 └── requirements.txt       # Project dependencies
@@ -143,6 +144,14 @@ python train.py \
 ## 📊 Evaluation
 We provide a comprehensive suite of benchmarks to evaluate State Tracking, Robustness, and Safety.
 
+### 0. Model Merging (Optional)
+If you want to merge the learned temporal bias and weights into the base model for easier deployment (HuggingFace format):
+```bash
+python benchmarks/merge_adapter.py \
+    --base_model_path microsoft/Phi-3.5-mini-instruct \
+    --ckpt_path ./checkpoints/dz_tdpo/final_model.pt \
+    --save_path ./merged_model
+
 ### 1. Qualitative Analysis (TAB-60 & PingPong)
 *   **TAB-60**: Evaluates the model on 60 adversarial scenarios (e.g., rapid preference toggling, role reversal).
     ```bash
@@ -168,7 +177,7 @@ We provide a comprehensive suite of benchmarks to evaluate State Tracking, Robus
     ```bash
     python benchmarks/eval_ppl.py --data_dir ./data/msc --ckpt_path ./checkpoints/dz_tdpo/final_model.pt
     ```
-*   **Generation Quality (BLEU/ROUGE)**:
+*   **Generation Quality (BLEU/ROUGE/BERTScore)**:
     ```bash
     python benchmarks/eval_gen.py --data_dir ./data/msc --ckpt_path ./checkpoints/dz_tdpo/final_model.pt
     ```

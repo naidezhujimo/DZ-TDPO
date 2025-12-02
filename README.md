@@ -95,6 +95,7 @@ DZ-TDPO/
 ├── train.py               # Main unified training entry point
 ├── test_cpu_dryrun.py     # Architecture integrity verification script
 └── requirements.txt       # Project dependencies
+```
 
 ## 💻 Installation & Usage
 1. Clone the repository:

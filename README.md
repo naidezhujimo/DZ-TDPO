@@ -193,6 +193,4 @@ If you find this work helpful, please consider citing:
 }
 ```
 <div align="center">
-This project is an independent research effort.
-If you are an ArXiv endorser in cs.CL and find this work valuable, please consider endorsing. Thank you! 🙏
 </div>

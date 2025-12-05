@@ -8,22 +8,22 @@ import numpy as np
 from .dataset import TemporalPreferenceSample 
 
 def build_ultrachat_dataset(tokenizer, data_dir, num_samples=500, split="train_sft"):
-    print(f"📂 Loading UltraChat from: {data_dir} (Split: {split})")
+    print(f"Loading UltraChat from: {data_dir} (Split: {split})")
     
     if not os.path.exists(data_dir):
-        raise FileNotFoundError(f"❌ Directory not found: {data_dir}. Please set --data_dir correctly.")
+        raise FileNotFoundError(f"Directory not found: {data_dir}. Please set --data_dir correctly.")
 
     search_pattern = os.path.join(data_dir, "**", f"*{split}*.parquet")
     found_files = glob.glob(search_pattern, recursive=True)
     
     if not found_files:
-        print(f"⚠️ No specific split file found. Searching all .parquet files...")
+        print(f"No specific split file found. Searching all .parquet files...")
         found_files = glob.glob(os.path.join(data_dir, "**", "*.parquet"), recursive=True)
         
     if not found_files:
-        raise FileNotFoundError(f"❌ No .parquet files found in {data_dir}")
+        raise FileNotFoundError(f"No .parquet files found in {data_dir}")
     
-    print(f"✅ Found {len(found_files)} files. Loading...")
+    print(f"Found {len(found_files)} files. Loading...")
     
     ds = load_dataset(
         "parquet", 
@@ -147,6 +147,6 @@ def build_ultrachat_dataset(tokenizer, data_dir, num_samples=500, split="train_s
         if stats["scanned"] % 1000 == 0:
             pbar.set_postfix(hit_rate=f"{stats['success']/stats['scanned']:.1%}")
 
-    print(f"\n📊 Construct statistics: {stats}")
-    
+    print(f"\nConstruct statistics: {stats}")
+
     return samples

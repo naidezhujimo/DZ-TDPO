@@ -324,7 +324,7 @@ def run_evaluation():
     
     our_model = TemporalCausalLM_Gen(base_for_ours, config, device)
     
-    print("🔧 Restoring lambda_strength manually (Set to 0.68)...")
+    print("Restoring lambda_strength manually (Set to 0.68)...")
     our_model.temporal_bias.lambda_strength.data = torch.tensor(0.68, device=device)
     our_model.temporal_bias.tau_fixed.data = torch.tensor(20.0, device=device)
     ours_results = run_inference(our_model, tokenizer, dataset, "TAB-TDPO", use_tab=True)
@@ -383,13 +383,12 @@ def run_inference(model, tokenizer, dataset, model_name, use_tab=False):
             success = item['needle_answer'] in response
             results[item['id']] = {"output": response, "success": success}
             
-            status = "✅" if success else "❌"
             clean_resp = response.replace('\n', ' ')[:80]
-            print(f"{status} (Ans: {item['needle_answer']} | Out: {clean_resp}...)")
+            print(f"(Ans: {item['needle_answer']} | Out: {clean_resp}...)")
             
         except RuntimeError as e:
             if "out of memory" in str(e):
-                print(f"❌ OOM")
+                print(f"OOM")
                 results[item['id']] = {"output": "OOM", "success": False}
                 torch.cuda.empty_cache()
             else:
@@ -427,7 +426,7 @@ def save_results(dataset, base_res, ours_res):
             stats["tab"]["other"] += 1
 
     print("\n" + "="*60)
-    print(f"⚔️  INERTIA TRAP EXPERIMENT (N={len(dataset)})")
+    print(f"INERTIA TRAP EXPERIMENT (N={len(dataset)})")
     print(f"Scenario: Old Value repeated ~100 times vs. New Value once.")
     print("-" * 60)
     print(f"{'Metric':<20} | {'Base Model':<15} | {'TAB-TDPO':<15}")
@@ -437,4 +436,5 @@ def save_results(dataset, base_res, ours_res):
     print("="*60)
 
 if __name__ == "__main__":
+
     run_evaluation()

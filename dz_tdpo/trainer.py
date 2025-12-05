@@ -35,7 +35,7 @@ class TDPODKLTrainer:
             if p.requires_grad:
                 if "temporal_bias" in name:
                     matb_params.append(p)
-                    print(f"🔍 Find DZ-TA parameters: {name}")
+                    print(f"Find DZ-TA parameters: {name}")
                 else:
                     trainable_params.append(p)
         
@@ -185,7 +185,7 @@ class TDPODKLTrainer:
             print(f"【Chosen (better)】: ...{chosen_text[-100:]}")
             print(f"【Rejected (inferior)】: ...{rejected_text[-100:]}")
             interval_wr = metrics.get('interval_win_rate', 0.0)
-            print(f"【Scores】: Delta={metrics.get('avg_delta', 0):.2f} | Current Step Win={'YES' if metrics.get('win_rate', 0)>0 else 'NO'} | 🟢Last 80 steps win rate: {interval_wr:.1%}")
+            print(f"【Scores】: Delta={metrics.get('avg_delta', 0):.2f} | Current Step Win={'YES' if metrics.get('win_rate', 0)>0 else 'NO'} | Last 80 steps win rate: {interval_wr:.1%}")
             
             print("【Model Generation Test】: generating...", end="", flush=True)
             self.policy.eval()
@@ -266,8 +266,8 @@ class TDPODKLTrainer:
             metrics['global_win_rate'] = global_acc
             
             if (self.global_step + 1) % (10 *self.gradient_accumulation_steps) == 0:
-                print(f"🔄 Step {self.global_step+1} Update | gradient: {grad_norm:.4f} | Delta: {avg_delta:.4f} | Len: {valid_len_w:.1f}")
-                print(f"📊 Win rate statistics | recent: {interval_acc:.2%} | full: {global_acc:.2%}")
+                print(f"Step {self.global_step+1} Update | gradient: {grad_norm:.4f} | Delta: {avg_delta:.4f} | Len: {valid_len_w:.1f}")
+                print(f"Win rate statistics | recent: {interval_acc:.2%} | full: {global_acc:.2%}")
 
             if (self.global_step + 1) % (10 * self.gradient_accumulation_steps) == 0:
                     self.log_samples(batch, metrics, self.global_step)
@@ -317,7 +317,7 @@ class TDPODKLTrainer:
         print("Start TDPO-DKL Training...")
         print(f"configuration: beta0={self.config.beta0}, alpha={self.config.alpha_min}, tau={self.config.tau}")
         os.makedirs(self.output_dir, exist_ok=True)
-        print(f"🚀 Training started. Output dir: {self.output_dir}")
+        print(f"Training started. Output dir: {self.output_dir}")
         
         best_long_wr = 0.0
         for epoch in range(num_epochs):
@@ -351,14 +351,14 @@ class TDPODKLTrainer:
                     if self.global_step > 0 and self.global_step % save_every == 0:
                         save_path = os.path.join(self.output_dir, f"tdpo_dkl_final.pt")
                         self.save_checkpoint(save_path, save_optimizer=False)
-                        print(f"\n[Checkpoint] ✅ The model has been saved to: {save_path}\n")
+                        print(f"\n[Checkpoint] The model has been saved to: {save_path}\n")
             
             if self.val_loader:
                 val_metrics = self.evaluate(epoch)
                 long_wr = val_metrics.get('long_win_rate', 0.0)
                 
                 if long_wr > best_long_wr:
-                    print(f"🏆 New record! Long-term winning rate: {best_long_wr:.2%} -> {long_wr:.2%}")
+                    print(f"New record! Long-term winning rate: {best_long_wr:.2%} -> {long_wr:.2%}")
                     best_long_wr = long_wr
                     self.save_checkpoint(os.path.join(self.output_dir, "tdpo_dkl_final.pt"))
                     
@@ -398,4 +398,5 @@ class TDPODKLTrainer:
             torch.save(save_dict, save_path)
             
             file_size = os.path.getsize(save_path) / (1024 * 1024)
+
             print(f"Checkpoint saved to {save_path} | Size: {file_size:.2f} MB")

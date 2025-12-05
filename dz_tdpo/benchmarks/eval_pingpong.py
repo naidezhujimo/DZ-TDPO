@@ -39,7 +39,7 @@ def run_pingpong_test():
         device_map="auto", 
         trust_remote_code=True
     )
-    print("⚠️ Resizing token embeddings...")
+    print("Resizing token embeddings...")
     base_model.resize_token_embeddings(32011) 
     
     tokenizer = AutoTokenizer.from_pretrained(config.model_name, trust_remote_code=True)
@@ -50,7 +50,7 @@ def run_pingpong_test():
     results = []
 
     for scenario in PINGPONG_SCENARIOS:
-        print(f"\n🏓 Starting Match: {scenario['name']}")
+        print(f"\nStarting Match: {scenario['name']}")
         
         messages = []
         turn_logs = []
@@ -91,7 +91,8 @@ def run_pingpong_test():
     with open("appendix_pingpong_test.jsonl", "w", encoding='utf-8') as f:
         for r in results:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    print("\n✅ PingPong test complete.")
+    print("\nPingPong test complete.")
 
 if __name__ == "__main__":
+
     run_pingpong_test()

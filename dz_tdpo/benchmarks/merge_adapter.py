@@ -18,7 +18,7 @@ def parse_args():
 
 def merge_and_save():
     args = parse_args()
-    print(f"🔄 Loading Base Model from {args.base_model_path}...")
+    print(f"Loading Base Model from {args.base_model_path}...")
     
     model = AutoModelForCausalLM.from_pretrained(
         args.base_model_path,
@@ -28,11 +28,11 @@ def merge_and_save():
     )
     tokenizer = AutoTokenizer.from_pretrained(args.base_model_path, trust_remote_code=True)
 
-    print("🔧 Resizing token embeddings...")
+    print("Resizing token embeddings...")
     tokenizer.add_special_tokens({'additional_special_tokens': ["<|user|>", "<|assistant|>", "<|end|>"]})
     model.resize_token_embeddings(len(tokenizer))
 
-    print(f"📥 Loading Checkpoint from {args.ckpt_path}...")
+    print(f"Loading Checkpoint from {args.ckpt_path}...")
     ckpt = torch.load(args.ckpt_path, map_location="cpu")
     
     if isinstance(ckpt, dict) and 'policy_state_dict' in ckpt:
@@ -43,7 +43,7 @@ def merge_and_save():
     backbone_state_dict = {}
     custom_params = {}
     
-    print("🧹 Cleaning state dict...")
+    print("Cleaning state dict...")
     for k, v in state_dict.items():
         if "temporal_bias" in k or "lambda_strength" in k:
             custom_params[k] = v
@@ -58,7 +58,7 @@ def merge_and_save():
         backbone_state_dict[new_k] = v
 
     if custom_params:
-        print("\n✨ Found Custom Temporal Parameters:")
+        print("\nFound Custom Temporal Parameters:")
         for k, v in custom_params.items():
             print(f"   - {k}: {v.item() if v.numel() == 1 else v.shape}")
         
@@ -74,10 +74,11 @@ def merge_and_save():
     if len(missing) > 0: print(f"   Example: {missing[:3]}")
     print(f"   Unexpected keys: {len(unexpected)}")
 
-    print(f"💾 Saving merged HF model to {args.save_path}...")
+    print(f"Saving merged HF model to {args.save_path}...")
     model.save_pretrained(args.save_path)
     tokenizer.save_pretrained(args.save_path)
-    print("✅ Merge Complete! You can now load this path directly with AutoModel.")
+    print("Merge Complete! You can now load this path directly with AutoModel.")
 
 if __name__ == "__main__":
+
     merge_and_save()

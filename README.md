@@ -17,6 +17,7 @@
 ---
 
 ## 📢 News
+- **[2025/12/15]** **Baseline Repair** For experimental rigor, we fixed Baseline and now test it normally.
 - **[2025/12/12]** 💻 **Code Released!** The full training framework and evaluation benchmarks are now available.
 - **[2025/12/12]** 🚀 **Paper Released!** We have uploaded the paper PDF directly to this repo.
 
@@ -93,6 +94,8 @@ DZ-TDPO/
 │   ├── eval_RULER.py      # Long-context Retrieval Stress Test
 │   ├── merge_adapter.py   # Utility: Merge Custom Weights into HF Base Model
 │   ├── eval_gen.py        # Quantitative: Generation Quality (BLEU, ROUGE, BERTScore)
+├── baselines/
+│   ├── train_baselines.py # Training DPO and SimPO
 ├── train.py               # Main unified training entry point
 ├── test_cpu_dryrun.py     # Architecture integrity verification script
 └── requirements.txt       # Project dependencies
@@ -132,13 +135,13 @@ python train.py \
     --epochs 4
 ```
 
-3. Run Training (SimPO Baseline)
+3. Run Training (DPO/SimPO Baseline)
 ```bash
-python train.py \
-    --loss_type simpo \
+python baselines/train_baselines.py \
+    --mode dpo(/simpo) \
     --model_name_or_path microsoft/Phi-3.5-mini-instruct \
     --data_dir ./data/msc \
-    --output_dir ./checkpoints/simpo
+    --output_dir ./checkpoints/dpo(/simpo)
 ```
 
 ## 📊 Evaluation
